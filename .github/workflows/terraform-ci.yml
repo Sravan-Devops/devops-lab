@@ -4,15 +4,15 @@ on:
   push:
     branches:
       - main
-      - feature/init  # 👈 Added this branch
+      - feature/init
   pull_request:
     branches:
       - main
-      - feature/init  # 👈 Optional: to run on PRs to this branch
+      - feature/init
 
 jobs:
   terraform-check:
-    name: Terraform Format and Validate
+    name: Terraform Validate and Plan
     runs-on: ubuntu-latest
 
     steps:
@@ -30,3 +30,12 @@ jobs:
 
       - name: Terraform Validate
         run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+
+      - name: Upload Terraform Plan Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: terraform-plan
+          path: tfplan
