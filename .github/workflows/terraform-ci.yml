@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main
+      - feature/init  # 👈 Added this branch
   pull_request:
     branches:
       - main
+      - feature/init  # 👈 Optional: to run on PRs to this branch
 
 jobs:
   terraform-check:
